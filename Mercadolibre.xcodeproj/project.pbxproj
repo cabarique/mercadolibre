@@ -189,6 +189,23 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		15263D9F25DB606F00D72877 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				15263D4725DB549400D72877 /* Assets */,
+				15263DA025DB609E00D72877 /* Source */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		15263DA025DB609E00D72877 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				15263D4525DB547100D72877 /* Main */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		1526E60E25DB415B007A9292 = {
 			isa = PBXGroup;
 			children = (
@@ -214,9 +231,8 @@
 		1526E61925DB415B007A9292 /* Mercadolibre */ = {
 			isa = PBXGroup;
 			children = (
-				15263D4725DB549400D72877 /* Assets */,
+				15263D9F25DB606F00D72877 /* App */,
 				15263D4625DB547800D72877 /* AppDelegate */,
-				15263D4525DB547100D72877 /* Main */,
 				1526E62825DB415C007A9292 /* Info.plist */,
 			);
 			path = Mercadolibre;
