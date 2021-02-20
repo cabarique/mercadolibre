@@ -20,6 +20,9 @@ struct Font {
     private var fontRegular: String {
         fontName + "-Regular"
     }
+    private var fontBold: String {
+        fontName + "-DemiBold"
+    }
     
     // MARK: Font sizes
     private let title: CGFloat = 22
@@ -28,6 +31,7 @@ struct Font {
     private let h3: CGFloat = 12
     
     // MARK: Guide
+    // MARK: - Regular
     /// Font: AvenirNext-Regular Size: 22
     var titleRegular: UIFont {
         UIFont(name: fontRegular, size: title)!
@@ -46,6 +50,12 @@ struct Font {
     /// Font: AvenirNext-Regular Size: 12
     var h3Regular: UIFont {
         UIFont(name: fontRegular, size: h3)!
+    }
+    
+    // MARK: - Bold
+    /// Font: AvenirNext-Regular Size: 18
+    var h1Bold: UIFont {
+        UIFont(name: fontBold, size: h1)!
     }
 }
 
