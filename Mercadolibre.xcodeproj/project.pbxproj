@@ -21,6 +21,7 @@
 		1526E62725DB415C007A9292 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1526E62525DB415C007A9292 /* LaunchScreen.storyboard */; };
 		1526E63225DB415C007A9292 /* MercadolibreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526E63125DB415C007A9292 /* MercadolibreTests.swift */; };
 		1526E63D25DB415C007A9292 /* MercadolibreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526E63C25DB415C007A9292 /* MercadolibreUITests.swift */; };
+		1593FAAA25E146EF00DC6599 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1593FAA925E146EF00DC6599 /* Style.swift */; };
 		333B232CA3939E9CE1EB28C2 /* Pods_MercadolibreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE52D510D763DAC8041BBB25 /* Pods_MercadolibreTests.framework */; };
 		895CFB73415C6B5595A19C0B /* Pods_Mercadolibre_MercadolibreUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2100E728ADC1826BE1F2F798 /* Pods_Mercadolibre_MercadolibreUITests.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		1526E63825DB415C007A9292 /* MercadolibreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MercadolibreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1526E63C25DB415C007A9292 /* MercadolibreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercadolibreUITests.swift; sourceTree = "<group>"; };
 		1526E63E25DB415C007A9292 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1593FAA925E146EF00DC6599 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		2100E728ADC1826BE1F2F798 /* Pods_Mercadolibre_MercadolibreUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mercadolibre_MercadolibreUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		298BED07E500A9B58FFF1DDA /* Pods-MercadolibreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MercadolibreTests.release.xcconfig"; path = "Target Support Files/Pods-MercadolibreTests/Pods-MercadolibreTests.release.xcconfig"; sourceTree = "<group>"; };
 		7C99C05B007AEBE14E6EB998 /* Pods-Mercadolibre-MercadolibreUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mercadolibre-MercadolibreUITests.release.xcconfig"; path = "Target Support Files/Pods-Mercadolibre-MercadolibreUITests/Pods-Mercadolibre-MercadolibreUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		15263DA025DB609E00D72877 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				1593FAA825E146CE00DC6599 /* Common */,
 				15263D4525DB547100D72877 /* Main */,
 			);
 			path = Source;
@@ -254,6 +257,14 @@
 				1526E63E25DB415C007A9292 /* Info.plist */,
 			);
 			path = MercadolibreUITests;
+			sourceTree = "<group>";
+		};
+		1593FAA825E146CE00DC6599 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1593FAA925E146EF00DC6599 /* Style.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		52375EF03F8993A1E730F16C /* Pods */ = {
@@ -542,6 +553,7 @@
 				15263D7A25DB596400D72877 /* MainModule.swift in Sources */,
 				15263D4A25DB54E000D72877 /* MainViewController.swift in Sources */,
 				15263D9325DB5F1C00D72877 /* MainInteractor.swift in Sources */,
+				1593FAAA25E146EF00DC6599 /* Style.swift in Sources */,
 				15263D8925DB5B9100D72877 /* MainRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
