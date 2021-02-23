@@ -9,8 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol MainViewInput {
-    var itemsObservable: Driver<[SectionEntity]> { get }
+protocol MainViewOutput {
+    func viewDidLoad()
 }
 
 final class MainViewController: UIViewController {
@@ -47,7 +47,8 @@ final class MainViewController: UIViewController {
     }
     
     // MARK: Attributes
-    private let presenter: MainViewInput
+    private let input: MainViewInput
+    private let output: MainViewOutput
     private let disposeBag =  DisposeBag()
     
     // MARK: - Value Types
@@ -55,8 +56,9 @@ final class MainViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<SectionEntity, MainItemEntity>
     private lazy var dataSource = makeDataSource()
     
-    init(presenter: MainViewInput) {
-        self.presenter = presenter
+    init(presenter: MainViewInput & MainViewOutput) {
+        self.input = presenter
+        self.output = presenter
         super.init(nibName: String(describing: MainViewController.self), bundle: nil)
     }
     
@@ -70,6 +72,7 @@ final class MainViewController: UIViewController {
         view.backgroundColor = Style.color.background
         configureLayout()
         collectionView.dataSource = dataSource
+        output.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +90,7 @@ final class MainViewController: UIViewController {
        self.navigationController?.isNavigationBarHidden = false;
     }
     
-    // MARK: - Functions
+    // MARK: - CollectionView Layout
     func makeDataSource() -> DataSource {
         let dataSource = DataSource(
             collectionView: collectionView,
@@ -136,8 +139,9 @@ final class MainViewController: UIViewController {
         })
     }
     
+    // MARK: input
     private func rxBind() {
-        presenter.itemsObservable
+        input.itemsObservable
             .drive(onNext: { [weak self] sections in
                 guard let self = self else { return }
                 self.applySnapshot(animatingDifferences: true, sections: sections)

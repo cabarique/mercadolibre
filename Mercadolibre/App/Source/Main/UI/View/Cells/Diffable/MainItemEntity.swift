@@ -20,7 +20,11 @@ class MainItemEntity: Hashable {
 
 /// Entity defines an error occured during execution
 final class ItemErrorEntity: MainItemEntity {
-    let errorMsg: String = ""
+    let errorMsg: String
+    
+    init(errorMsg: String) {
+        self.errorMsg = errorMsg
+    }
     
     override func hash(into hasher: inout Hasher) {
         hasher.combine(String(describing: ItemErrorEntity.self))

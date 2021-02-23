@@ -11,14 +11,14 @@ import Foundation
 class ItemEntity: MainItemEntity {
     let id: String
     let name: String
-    let imageUrl: String
+    let imageUrl: URL?
     let value: Float
     
     var formattedValue: String {
         "$ \(value)"
     }
     
-    init(id: String = UUID().uuidString, name: String, imageUrl: String, value: Float) {
+    init(id: String = UUID().uuidString, name: String, imageUrl: URL?, value: Float) {
         self.id = id
         self.name = name
         self.imageUrl = imageUrl
