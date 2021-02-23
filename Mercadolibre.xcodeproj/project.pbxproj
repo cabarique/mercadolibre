@@ -21,6 +21,8 @@
 		1526E62725DB415C007A9292 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1526E62525DB415C007A9292 /* LaunchScreen.storyboard */; };
 		1526E63225DB415C007A9292 /* MercadolibreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526E63125DB415C007A9292 /* MercadolibreTests.swift */; };
 		1526E63D25DB415C007A9292 /* MercadolibreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1526E63C25DB415C007A9292 /* MercadolibreUITests.swift */; };
+		155E270025E5548E00A66AEF /* MainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155E26FF25E5548E00A66AEF /* MainData.swift */; };
+		155E270825E5585100A66AEF /* MainItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155E270725E5585100A66AEF /* MainItemEntity.swift */; };
 		1593FAAA25E146EF00DC6599 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1593FAA925E146EF00DC6599 /* Style.swift */; };
 		1593FAB525E1606700DC6599 /* ItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1593FAB425E1606700DC6599 /* ItemEntity.swift */; };
 		1593FAC025E161BD00DC6599 /* SectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1593FABF25E161BD00DC6599 /* SectionEntity.swift */; };
@@ -69,6 +71,8 @@
 		1526E63825DB415C007A9292 /* MercadolibreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MercadolibreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1526E63C25DB415C007A9292 /* MercadolibreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercadolibreUITests.swift; sourceTree = "<group>"; };
 		1526E63E25DB415C007A9292 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		155E26FF25E5548E00A66AEF /* MainData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainData.swift; sourceTree = "<group>"; };
+		155E270725E5585100A66AEF /* MainItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainItemEntity.swift; sourceTree = "<group>"; };
 		1593FAA925E146EF00DC6599 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		1593FAB425E1606700DC6599 /* ItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEntity.swift; sourceTree = "<group>"; };
 		1593FABF25E161BD00DC6599 /* SectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEntity.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 		15263D4525DB547100D72877 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				155E26FE25E5548000A66AEF /* Data */,
 				15263D9025DB5F0800D72877 /* Logic */,
 				15263D5B25DB555000D72877 /* UI */,
 				15263D7925DB596400D72877 /* MainModule.swift */,
@@ -269,6 +274,14 @@
 			path = MercadolibreUITests;
 			sourceTree = "<group>";
 		};
+		155E26FE25E5548000A66AEF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				155E26FF25E5548E00A66AEF /* MainData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		1593FAA825E146CE00DC6599 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +304,7 @@
 			children = (
 				1593FAB425E1606700DC6599 /* ItemEntity.swift */,
 				1593FABF25E161BD00DC6599 /* SectionEntity.swift */,
+				155E270725E5585100A66AEF /* MainItemEntity.swift */,
 			);
 			path = Diffable;
 			sourceTree = "<group>";
@@ -577,11 +591,13 @@
 			files = (
 				1593FAB525E1606700DC6599 /* ItemEntity.swift in Sources */,
 				15263D8025DB5AC300D72877 /* MainPresenter.swift in Sources */,
+				155E270825E5585100A66AEF /* MainItemEntity.swift in Sources */,
 				1526E61B25DB415B007A9292 /* AppDelegate.swift in Sources */,
 				15263D9825DB5F8D00D72877 /* MainDataManager.swift in Sources */,
 				1593FAC025E161BD00DC6599 /* SectionEntity.swift in Sources */,
 				1526E61D25DB415B007A9292 /* SceneDelegate.swift in Sources */,
 				15263D7A25DB596400D72877 /* MainModule.swift in Sources */,
+				155E270025E5548E00A66AEF /* MainData.swift in Sources */,
 				15263D4A25DB54E000D72877 /* MainViewController.swift in Sources */,
 				1593FAC925E16C9D00DC6599 /* ItemCell.swift in Sources */,
 				15263D9325DB5F1C00D72877 /* MainInteractor.swift in Sources */,

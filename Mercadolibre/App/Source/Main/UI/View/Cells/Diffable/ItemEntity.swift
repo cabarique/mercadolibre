@@ -8,7 +8,7 @@
 import Foundation
 
 /// Entity that represents an item
-class ItemEntity: Hashable {
+class ItemEntity: MainItemEntity {
     let id: String
     let name: String
     let imageUrl: String
@@ -25,7 +25,7 @@ class ItemEntity: Hashable {
         self.value = value
     }
     
-    func hash(into hasher: inout Hasher) {
+    override func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     

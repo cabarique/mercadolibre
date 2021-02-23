@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
+protocol MainViewInput {
+    var itemsObservable: Driver<[SectionEntity]> { get }
+}
 
 final class MainViewController: UIViewController {
-    // MARK: Attributes
-    private let presenter: MainPresenterProtocol
+    // MARK: IBOutlets
     @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.backgroundColor = Style.color.background
@@ -41,20 +46,16 @@ final class MainViewController: UIViewController {
         }
     }
     
-    // MARK: - Value Types
-    typealias DataSource = UICollectionViewDiffableDataSource<SectionEntity, ItemEntity>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<SectionEntity, ItemEntity>
-    private lazy var dataSource = makeDataSource()
-    var sections: [SectionEntity] = {
-        var items: [ItemEntity] = []
-        for i in 0...5 {
-            let item = ItemEntity(name: "Item Item Item Item Item Item Item Item Item Item Item Item Item Item Item Item Item Item Item #\(i)", imageUrl: "", value: Float.random(in: (99999 ..< 1000000)))
-            items.append(item)
-        }
-        return [SectionEntity(title: "Items", items: items)]
-    }()
+    // MARK: Attributes
+    private let presenter: MainViewInput
+    private let disposeBag =  DisposeBag()
     
-    init(presenter: MainPresenterProtocol) {
+    // MARK: - Value Types
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionEntity, MainItemEntity>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SectionEntity, MainItemEntity>
+    private lazy var dataSource = makeDataSource()
+    
+    init(presenter: MainViewInput) {
         self.presenter = presenter
         super.init(nibName: String(describing: MainViewController.self), bundle: nil)
     }
@@ -73,7 +74,7 @@ final class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        applySnapshot(animatingDifferences: false)
+        rxBind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,16 +92,22 @@ final class MainViewController: UIViewController {
         let dataSource = DataSource(
             collectionView: collectionView,
             cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-                let id = String(describing: ItemCell.self)
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemCell
-                cell?.setup(title: item.name, price: item.formattedValue)
-                cell?.separatorEnabled = indexPath.row != 0
-                return cell
+                switch item {
+                case let itemEntity as ItemEntity:
+                    let id = String(describing: ItemCell.self)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemCell
+                    cell?.setup(title: itemEntity.name, price: itemEntity.formattedValue)
+                    cell?.separatorEnabled = indexPath.row != 0
+                    return cell
+                default:
+                    return nil
+                }
+                
             })
         return dataSource
     }
     
-    private func applySnapshot(animatingDifferences: Bool = true) {
+    private func applySnapshot(animatingDifferences: Bool = true, sections: [SectionEntity]) {
         var snapshot = Snapshot()
         snapshot.appendSections(sections)
         sections.forEach { section in
@@ -127,5 +134,13 @@ final class MainViewController: UIViewController {
             section.interGroupSpacing = 10
             return section
         })
+    }
+    
+    private func rxBind() {
+        presenter.itemsObservable
+            .drive(onNext: { [weak self] sections in
+                guard let self = self else { return }
+                self.applySnapshot(animatingDifferences: true, sections: sections)
+            }).disposed(by: disposeBag)
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol MainRouterProtocol {
-    func show(presenter: MainPresenterProtocol)
+    func show(presenter: MainViewInput)
 }
 
 final class MainRouter: MainRouterProtocol {
@@ -24,7 +24,7 @@ final class MainRouter: MainRouterProtocol {
         self.baseController = baseController
     }
     
-    func show(presenter: MainPresenterProtocol) {
+    func show(presenter: MainViewInput) {
         let vc = MainViewController(presenter: presenter)
         navigation?.pushViewController(vc, animated: false)
     }

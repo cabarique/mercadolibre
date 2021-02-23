@@ -7,12 +7,12 @@
 
 import Foundation
 
-class SectionEntity: Hashable {
+final class SectionEntity: Hashable {
   var id = UUID()
   var title: String
-  var items: [ItemEntity]
+  var items: [MainItemEntity]
   
-  init(title: String, items: [ItemEntity]) {
+  init(title: String, items: [MainItemEntity]) {
     self.title = title
     self.items = items
   }
