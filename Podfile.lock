@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.4.1)
+  - AlamofireImage (4.1.0):
+    - Alamofire (~> 5.1)
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
@@ -33,6 +35,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
+  - AlamofireImage (~> 4.1)
   - IGListKit (~> 4.0.0)
   - OHHTTPStubs/Swift
   - RxAlamofire
@@ -44,6 +47,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AlamofireImage
     - IGListDiffKit
     - IGListKit
     - OHHTTPStubs
@@ -56,6 +60,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   OHHTTPStubs: 90eac6d8f2c18317baeca36698523dc67c513831
@@ -66,6 +71,6 @@ SPEC CHECKSUMS:
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SkeletonView: 2b14cb767a7da384d17d5d7e1db0d55a6cf9566a
 
-PODFILE CHECKSUM: 226fea206a75c075ceb31ba1b10e590fb7e2cd7b
+PODFILE CHECKSUM: 57caf505cc15e62690b6a82a7b349a5750941eb0
 
 COCOAPODS: 1.9.3

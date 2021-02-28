@@ -48,4 +48,10 @@ struct ItemDTO: Decodable {
     let title: String
     let price: Float
     let thumbnail: String
+    let installments: Installment
+}
+
+struct Installment: Decodable {
+    let quantity: Int
+    let amount: Float
 }

@@ -44,7 +44,11 @@ final class MainPresenter: MainPresenterProtocol {
             .map { items -> [ItemEntity] in
                 return items.map { item -> ItemEntity in
                     let url = URL(string: item.thumbnail)
-                    return ItemEntity(id: item.id, name: item.title, imageUrl: url, value: item.price)
+                    return ItemEntity(id: item.id,
+                                      name: item.title,
+                                      imageUrl: url,
+                                      value: item.price,
+                                      installment: item.installments)
                 }
             }
             .subscribe { [weak self] items in

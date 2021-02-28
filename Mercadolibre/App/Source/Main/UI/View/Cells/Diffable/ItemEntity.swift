@@ -13,16 +13,23 @@ class ItemEntity: MainItemEntity {
     let name: String
     let imageUrl: URL?
     let value: Float
+    let installment: Installment?
     
     var formattedValue: String {
-        "$ \(value)"
+        value.toCurrency()
     }
     
-    init(id: String = UUID().uuidString, name: String, imageUrl: URL?, value: Float) {
+    var formatedInstallment: String? {
+        guard let installment = installment else { return nil }
+        return "in \(installment.quantity)x \(installment.amount.toCurrency())"
+    }
+    
+    init(id: String = UUID().uuidString, name: String, imageUrl: URL?, value: Float, installment: Installment?) {
         self.id = id
         self.name = name
         self.imageUrl = imageUrl
         self.value = value
+        self.installment = installment
     }
     
     override func hash(into hasher: inout Hasher) {

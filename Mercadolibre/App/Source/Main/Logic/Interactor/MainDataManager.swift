@@ -47,7 +47,6 @@ final class MainDataManager: MainDataManagerProtocol {
             return .error(APIError.urlMalformed)
         }
         let request = URLRequest(url: _components)
-        URLCache.shared.removeCachedResponse(for: request)
         return Single<ItemsDTO>.create { [weak self] single -> Disposable in
             let disposable = Disposables.create()
             guard let self = self else { return disposable }

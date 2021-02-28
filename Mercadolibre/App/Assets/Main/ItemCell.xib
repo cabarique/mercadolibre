@@ -80,6 +80,7 @@
                 <outlet property="installmentLabel" destination="If1-83-TTf" id="xMN-0z-6yt"/>
                 <outlet property="priceLabel" destination="8KL-3f-jnc" id="ToK-Tj-ZXY"/>
                 <outlet property="separatorView" destination="mhP-pN-tQY" id="YhZ-UD-Ubs"/>
+                <outlet property="thumbImage" destination="h07-hb-1t7" id="JdC-oO-3xS"/>
                 <outlet property="titleLabel" destination="SPl-kN-55o" id="YGa-2p-f1M"/>
                 <outlet property="usedLabel" destination="vjE-rq-hNp" id="0IE-BQ-8Dp"/>
             </connections>

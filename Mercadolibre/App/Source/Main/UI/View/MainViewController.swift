@@ -101,7 +101,10 @@ final class MainViewController: UIViewController {
                 case let itemEntity as ItemEntity:
                     let id = String(describing: ItemCell.self)
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemCell
-                    cell?.setup(title: itemEntity.name, price: itemEntity.formattedValue)
+                    cell?.setup(title: itemEntity.name,
+                                price: itemEntity.formattedValue,
+                                thumb: itemEntity.imageUrl,
+                                installments: itemEntity.formatedInstallment)
                     cell?.separatorEnabled = indexPath.row != 0
                     return cell
                 case is ItemLoadingEntity:

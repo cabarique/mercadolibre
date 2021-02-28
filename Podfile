@@ -18,6 +18,7 @@ target 'Mercadolibre' do
   # Networking
   pod 'Alamofire', '~> 5.2'
   pod 'RxAlamofire'
+  pod 'AlamofireImage', '~> 4.1'
 
   target 'MercadolibreTests' do
     inherit! :search_paths

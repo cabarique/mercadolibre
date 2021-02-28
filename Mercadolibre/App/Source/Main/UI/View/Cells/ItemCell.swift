@@ -7,9 +7,18 @@
 
 import UIKit
 import SkeletonView
+import RxSwift
+import Alamofire
+import AlamofireImage
 
 final class ItemCell: UICollectionViewCell {
+    private var disposeBag = DisposeBag()
     @IBOutlet private weak var separatorView: UIView!
+    @IBOutlet private weak var thumbImage: UIImageView! {
+        didSet {
+            thumbImage.backgroundColor = .clear
+        }
+    }
     @IBOutlet private weak var titleLabel: UILabel! {
         didSet {
             titleLabel.font = Style.font.h2Regular
@@ -35,13 +44,27 @@ final class ItemCell: UICollectionViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        thumbImage.image = nil
+    }
+    
     var separatorEnabled: Bool = true {
         didSet {
             separatorView.isHidden = !separatorEnabled
         }
     }
-    func setup(title: String, price: String) {
+    func setup(title: String, price: String, thumb: URL? = nil, installments: String? = nil) {
         titleLabel.text = title
         priceLabel.text = price
+        installmentLabel.text = installments
+        if let thumb = thumb,
+           let data = try? Data(contentsOf: thumb),
+           let image = UIImage(data: data, scale: UIScreen.main.scale) {
+            image.af.inflate()
+            thumbImage.image = image
+        }
+        
     }
 }

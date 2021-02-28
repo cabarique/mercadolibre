@@ -31,6 +31,7 @@
 		15A3DC5F25EBE364004E9CB7 /* ServiceDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3DC5E25EBE364004E9CB7 /* ServiceDefinitions.swift */; };
 		15A3DC7525EC071A004E9CB7 /* ErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3DC7325EC071A004E9CB7 /* ErrorCell.swift */; };
 		15A3DC7625EC071A004E9CB7 /* ErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A3DC7425EC071A004E9CB7 /* ErrorCell.xib */; };
+		15A3DC8F25EC14F8004E9CB7 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3DC8E25EC14F8004E9CB7 /* CurrencyFormatter.swift */; };
 		333B232CA3939E9CE1EB28C2 /* Pods_MercadolibreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE52D510D763DAC8041BBB25 /* Pods_MercadolibreTests.framework */; };
 		895CFB73415C6B5595A19C0B /* Pods_Mercadolibre_MercadolibreUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2100E728ADC1826BE1F2F798 /* Pods_Mercadolibre_MercadolibreUITests.framework */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		15A3DC5E25EBE364004E9CB7 /* ServiceDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDefinitions.swift; sourceTree = "<group>"; };
 		15A3DC7325EC071A004E9CB7 /* ErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCell.swift; sourceTree = "<group>"; };
 		15A3DC7425EC071A004E9CB7 /* ErrorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorCell.xib; sourceTree = "<group>"; };
+		15A3DC8E25EC14F8004E9CB7 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		2100E728ADC1826BE1F2F798 /* Pods_Mercadolibre_MercadolibreUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mercadolibre_MercadolibreUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		298BED07E500A9B58FFF1DDA /* Pods-MercadolibreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MercadolibreTests.release.xcconfig"; path = "Target Support Files/Pods-MercadolibreTests/Pods-MercadolibreTests.release.xcconfig"; sourceTree = "<group>"; };
 		7C99C05B007AEBE14E6EB998 /* Pods-Mercadolibre-MercadolibreUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mercadolibre-MercadolibreUITests.release.xcconfig"; path = "Target Support Files/Pods-Mercadolibre-MercadolibreUITests/Pods-Mercadolibre-MercadolibreUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			children = (
 				1593FAA925E146EF00DC6599 /* Style.swift */,
 				15A3DC5E25EBE364004E9CB7 /* ServiceDefinitions.swift */,
+				15A3DC8E25EC14F8004E9CB7 /* CurrencyFormatter.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				15263D4A25DB54E000D72877 /* MainViewController.swift in Sources */,
 				1593FAC925E16C9D00DC6599 /* ItemCell.swift in Sources */,
 				15263D9325DB5F1C00D72877 /* MainInteractor.swift in Sources */,
+				15A3DC8F25EC14F8004E9CB7 /* CurrencyFormatter.swift in Sources */,
 				1593FAAA25E146EF00DC6599 /* Style.swift in Sources */,
 				15263D8925DB5B9100D72877 /* MainRouter.swift in Sources */,
 			);
