@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SkeletonView
 
 protocol MainViewOutput {
     func viewDidLoad()
@@ -73,6 +74,7 @@ final class MainViewController: UIViewController {
         configureLayout()
         collectionView.dataSource = dataSource
         output.viewDidLoad()
+//        SkeletonAppearance.default.multilineHeight = 20
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,10 +104,20 @@ final class MainViewController: UIViewController {
                     cell?.setup(title: itemEntity.name, price: itemEntity.formattedValue)
                     cell?.separatorEnabled = indexPath.row != 0
                     return cell
+                case is ItemLoadingEntity:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingCell", for: indexPath)
+                    cell.contentView.isSkeletonable = true
+                    cell.contentView.showAnimatedSkeleton()
+                    let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+                    cell.contentView.showAnimatedSkeleton(usingColor: .concrete, animation: animation, transition: .none)
+                    return cell
                 default:
-                    return nil
+                    let errorMessage = (item as? ItemErrorEntity)?.errorMsg
+                    let id = String(describing: ErrorCell.self)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ErrorCell
+                    cell?.errorMessage = errorMessage
+                    return cell
                 }
-                
             })
         return dataSource
     }
@@ -122,6 +134,9 @@ final class MainViewController: UIViewController {
     private func configureLayout() {
         let id = String(describing: ItemCell.self)
         collectionView.register(UINib(nibName: id, bundle: nil), forCellWithReuseIdentifier: id)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "loadingCell")
+        let errorId = String(describing: ErrorCell.self)
+        collectionView.register(UINib(nibName: errorId, bundle: nil), forCellWithReuseIdentifier: errorId)
         
         collectionView.collectionViewLayout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             let isPhone = layoutEnvironment.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiom.phone
@@ -129,6 +144,7 @@ final class MainViewController: UIViewController {
                 widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
                 heightDimension: NSCollectionLayoutDimension.absolute(isPhone ? 130 : 120)
             )
+            
             let itemCount = isPhone ? 1 : 3
             let item = NSCollectionLayoutItem(layoutSize: size)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: itemCount)
@@ -137,6 +153,7 @@ final class MainViewController: UIViewController {
             section.interGroupSpacing = 10
             return section
         })
+        
     }
     
     // MARK: input

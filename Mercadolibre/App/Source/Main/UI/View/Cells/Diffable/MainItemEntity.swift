@@ -9,12 +9,13 @@ import Foundation
 
 /// Defines shared protocol for Entities displayed on Main View
 class MainItemEntity: Hashable {
+    let uuid = UUID()
     func hash(into hasher: inout Hasher) {
-        hasher.combine(String(describing: MainItemEntity.self))
+        hasher.combine(uuid)
     }
     
     static func == (lhs: MainItemEntity, rhs: MainItemEntity) -> Bool {
-        return false
+        return lhs.uuid == rhs.uuid
     }
 }
 
@@ -25,23 +26,7 @@ final class ItemErrorEntity: MainItemEntity {
     init(errorMsg: String) {
         self.errorMsg = errorMsg
     }
-    
-    override func hash(into hasher: inout Hasher) {
-        hasher.combine(String(describing: ItemErrorEntity.self))
-    }
-    
-    static func == (lhs: ItemErrorEntity, rhs: ItemErrorEntity) -> Bool {
-        lhs.errorMsg == rhs.errorMsg
-    }
 }
 
 /// Loading item skeleton
-final class ItemLoadingEntity: MainItemEntity {
-    override func hash(into hasher: inout Hasher) {
-        hasher.combine(String(describing: ItemLoadingEntity.self))
-    }
-    
-    static func == (lhs: ItemLoadingEntity, rhs: ItemLoadingEntity) -> Bool {
-        return true
-    }
-}
+final class ItemLoadingEntity: MainItemEntity { }

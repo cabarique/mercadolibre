@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 final class ItemCell: UICollectionViewCell {
     @IBOutlet private weak var separatorView: UIView!

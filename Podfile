@@ -9,6 +9,7 @@ target 'Mercadolibre' do
 
   # UI
   pod 'IGListKit', '~> 4.0.0'
+  pod 'SkeletonView'
 
   # Rx
   pod 'RxSwift', '6.1.0'

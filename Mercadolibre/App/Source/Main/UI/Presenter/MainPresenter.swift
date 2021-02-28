@@ -49,6 +49,12 @@ final class MainPresenter: MainPresenterProtocol {
             }
             .subscribe { [weak self] items in
                 guard let self = self else { return }
+                guard items.count > 0 else {
+                    let item = ItemErrorEntity(errorMsg: APIError.emptyResults.localizedDescription)
+                    let section = SectionEntity(title: "error", items: [item])
+                    self.itemsSubject.onNext([section])
+                    return
+                }
                 let section = SectionEntity(title: "bicicleta", items: items)
                 self.itemsSubject.onNext([section])
             } onFailure: { [weak self] error in
@@ -81,7 +87,10 @@ extension MainPresenter: MainViewOutput {
     }
     
     private func emitGenericLoading() {
-        let items: [ItemLoadingEntity] = Array(repeating: ItemLoadingEntity(), count: 5)
+        
+        let items: [ItemLoadingEntity] = [ItemLoadingEntity(),
+                                          ItemLoadingEntity(),
+                                          ItemLoadingEntity(),]
         let section = SectionEntity(title: "loading", items: items)
         itemsSubject.onNext([section])
     }

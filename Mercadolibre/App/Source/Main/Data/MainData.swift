@@ -20,6 +20,11 @@ class Paging: Decodable {
     let offset: Int
     let limit: Int
     
+    enum CodingKeys: String, CodingKey {
+        case total, offset, limit
+        case results = "primary_results"
+    }
+    
     init(total: Int, results: Int, offset: Int, limit: Int) {
         self.total = total
         self.results = results
@@ -31,6 +36,11 @@ class Paging: Decodable {
 struct ItemsDTO: Decodable {
     let paging: Paging
     let items: [ItemDTO]
+    
+    enum CodingKeys: String, CodingKey {
+        case paging
+        case items = "results"
+    }
 }
 
 struct ItemDTO: Decodable {
