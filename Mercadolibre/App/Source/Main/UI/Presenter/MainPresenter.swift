@@ -48,7 +48,8 @@ final class MainPresenter: MainPresenterProtocol {
                                       name: item.title,
                                       imageUrl: url,
                                       value: item.price,
-                                      installment: item.installments)
+                                      installment: item.installments,
+                                      attributes: item.attributes)
                 }
             }
             .subscribe { [weak self] items in

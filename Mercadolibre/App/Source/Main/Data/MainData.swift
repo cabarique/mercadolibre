@@ -49,9 +49,36 @@ struct ItemDTO: Decodable {
     let price: Float
     let thumbnail: String
     let installments: Installment
+    let attributes: [ItemAttribute]
 }
 
 struct Installment: Decodable {
     let quantity: Int
     let amount: Float
+}
+
+struct ItemAttribute: Decodable {
+    let type: ItemAttributeType
+    let name: String?
+    let value: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case type = "id"
+        case value = "value_name"
+        case name
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try? container.decode(String.self, forKey: .name)
+        value = try? container.decode(String.self, forKey: .value)
+        type = (try? container.decode(ItemAttributeType?.self, forKey: .type)) ?? .other
+    }
+}
+
+enum ItemAttributeType: String, Decodable {
+    case brand = "BRAND"
+    case condition = "ITEM_CONDITION"
+    case model = "MODEL"
+    case other
 }

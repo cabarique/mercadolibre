@@ -14,6 +14,7 @@ class ItemEntity: MainItemEntity {
     let imageUrl: URL?
     let value: Float
     let installment: Installment?
+    let attributes: [ItemAttribute]
     
     var formattedValue: String {
         value.toCurrency()
@@ -24,12 +25,14 @@ class ItemEntity: MainItemEntity {
         return "in \(installment.quantity)x \(installment.amount.toCurrency())"
     }
     
-    init(id: String = UUID().uuidString, name: String, imageUrl: URL?, value: Float, installment: Installment?) {
+    init(id: String = UUID().uuidString, name: String, imageUrl: URL?, value: Float, installment: Installment?,
+         attributes: [ItemAttribute] = []) {
         self.id = id
         self.name = name
         self.imageUrl = imageUrl
         self.value = value
         self.installment = installment
+        self.attributes = attributes
     }
     
     override func hash(into hasher: inout Hasher) {

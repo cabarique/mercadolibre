@@ -55,10 +55,11 @@ final class ItemCell: UICollectionViewCell {
             separatorView.isHidden = !separatorEnabled
         }
     }
-    func setup(title: String, price: String, thumb: URL? = nil, installments: String? = nil) {
+    func setup(title: String, price: String, thumb: URL? = nil, installments: String? = nil, condition: String? = nil) {
         titleLabel.text = title
         priceLabel.text = price
         installmentLabel.text = installments
+        usedLabel.text = condition
         if let thumb = thumb,
            let data = try? Data(contentsOf: thumb),
            let image = UIImage(data: data, scale: UIScreen.main.scale) {
