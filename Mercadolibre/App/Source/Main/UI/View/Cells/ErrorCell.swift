@@ -10,7 +10,7 @@ import UIKit
 class ErrorCell: UICollectionViewCell {
     @IBOutlet private weak var iconImage: UIImageView! {
         didSet {
-            iconImage.image = UIImage(systemName: "arrow.clockwise.icloud.fill")
+            iconImage.image = UIImage(systemName: "magnifyingglass.circle.fill")
             iconImage.tintColor = Style.color.gray
         }
     }

@@ -19,9 +19,9 @@ enum APIError: Error {
 extension APIError: LocalizedError {
     var errorDescription: String? {
         switch self {
-        case .urlMalformed: return "Oops, we got an error, please try again."
-        case .statusError: return "Oops, we got an error, please try again."
-        case .emptyResults: return "No results found for your search."
+        case .urlMalformed: return "Ups, tenemos un error, intenta denuevo."
+        case .statusError: return "Ups, tenemos un error, intenta denuevo."
+        case .emptyResults: return "No encontramos publicaciones."
         }
     }
 }

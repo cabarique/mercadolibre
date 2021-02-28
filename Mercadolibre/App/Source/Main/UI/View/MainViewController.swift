@@ -12,6 +12,7 @@ import SkeletonView
 
 protocol MainViewOutput {
     func viewDidLoad()
+    func search(_ query: String)
 }
 
 final class MainViewController: UIViewController {
@@ -35,10 +36,22 @@ final class MainViewController: UIViewController {
             searchView.searchTextField.font = Style.font.h3Regular
             searchView.searchTextField.textColor = Style.color.gray
             searchView.searchTextField.placeholder = "Buscar en Mercado Libre"
+            searchView.rx.text.orEmpty
+                .throttle(.milliseconds(500), latest: true, scheduler: MainScheduler.instance)
+                .asObservable()
+                .distinctUntilChanged()
+                .subscribe(onNext: { [weak self] value in
+                    self?.output.search(value)
+                }).disposed(by: disposeBag)
         }
     }
     @IBOutlet private weak var cartImage: UIImageView!
-    @IBOutlet private weak var locationImage: UIImageView!
+    @IBOutlet private weak var locationImage: UIImageView! {
+        didSet {
+            locationImage.image = UIImage(systemName: "mappin.and.ellipse")
+            locationImage.tintColor = Style.color.gray
+        }
+    }
     @IBOutlet private weak var addressLable: UILabel! {
         didSet {
             addressLable.font = Style.font.h3Regular
@@ -74,7 +87,6 @@ final class MainViewController: UIViewController {
         configureLayout()
         collectionView.dataSource = dataSource
         output.viewDidLoad()
-//        SkeletonAppearance.default.multilineHeight = 20
     }
     
     override func viewDidAppear(_ animated: Bool) {

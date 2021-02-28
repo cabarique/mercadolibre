@@ -82,7 +82,7 @@ extension MainPresenter: MainViewOutput {
     func viewDidLoad() {
         querySubject
             .distinctUntilChanged()
-            .throttle(.milliseconds(500), scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
+            .throttle(.milliseconds(500), latest: true, scheduler: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
             .subscribe(onNext: { [weak self] query in
                 guard let self = self else { return }
                 self.query(query)
@@ -98,6 +98,10 @@ extension MainPresenter: MainViewOutput {
                                           ItemLoadingEntity(),]
         let section = SectionEntity(title: "loading", items: items)
         itemsSubject.onNext([section])
+    }
+    
+    func search(_ query: String) {
+        self.query(query)
     }
     
 }

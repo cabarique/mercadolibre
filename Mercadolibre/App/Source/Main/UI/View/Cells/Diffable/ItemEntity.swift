@@ -22,7 +22,7 @@ class ItemEntity: MainItemEntity {
     
     var formatedInstallment: String? {
         guard let installment = installment else { return nil }
-        return "in \(installment.quantity)x \(installment.amount.toCurrency())"
+        return "en \(installment.quantity)x \(installment.amount.toCurrency())"
     }
     
     init(id: String = UUID().uuidString, name: String, imageUrl: URL?, value: Float, installment: Installment?,
