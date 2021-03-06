@@ -21,7 +21,8 @@ final class ItemDataManager: ItemDataManagerProtocol {
         
         var components = URLComponents(string: ServiceDefinitions.queryItem)
         components?.queryItems = [
-            URLQueryItem(name: "ids", value: id)
+            URLQueryItem(name: "ids", value: id),
+            URLQueryItem(name: "attributes", value: "id,price,condition,pictures,title,sold_quantity,original_price,permalink")
         ]
         
         guard let _components = try? components?.asURL()
