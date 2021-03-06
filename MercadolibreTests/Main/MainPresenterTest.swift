@@ -42,7 +42,7 @@ final class MainPresenterTest: XCTestCase {
     func testViewDidLoad_RequestItems_loading() {
         
         do {
-            let result = try sot?.itemsObservable.do(onSubscribed: {
+            let result = try sot?.itemsObservable.skip(1).do(onSubscribed: {
                 self.sot?.viewDidLoad()
             }).toBlocking(timeout: 1).first()
             guard let items = result, let first = items.first else {
@@ -61,7 +61,7 @@ final class MainPresenterTest: XCTestCase {
     func testViewDidLoad_RequestItems_isError() {
         
         do {
-            let result = try sot?.itemsObservable.asObservable().take(2).do(onSubscribed: {
+            let result = try sot?.itemsObservable.asObservable().skip(1).take(2).do(onSubscribed: {
                 self.sot?.viewDidLoad()
             }).toBlocking(timeout: 1).toArray()
             guard let items = result, let second = items[safe: 1] else {
@@ -80,6 +80,8 @@ final class MainPresenterTest: XCTestCase {
 }
 
 final class MockMainInteractor: MainInteractorProtocol {
+    var hasNextPage: Bool = false
+    
     var currentAddress: String = "current address"
     
     func queryItems(_ query: String) -> Single<[ItemDTO]> {

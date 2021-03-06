@@ -10,6 +10,7 @@ import RxSwift
 
 protocol MainInteractorProtocol {
     var currentAddress: String { get }
+    var hasNextPage: Bool { get }
     func queryItems(_ query: String) -> Single<[ItemDTO]>
     func nextPage(_ query: String) -> Single<[ItemDTO]>
 }
@@ -18,6 +19,9 @@ final class MainInteractor: MainInteractorProtocol {
     
     // MARK: Attributes
     var currentAddress: String = "calle 159 # 54 - 81 >"
+    var hasNextPage: Bool {
+        paging.results > 0 && (paging.limit + paging.offset) < paging.results
+    }
     private let dataManager: MainDataManagerProtocol
     private var paging: Paging
     private var items = [ItemDTO]()
@@ -28,6 +32,7 @@ final class MainInteractor: MainInteractorProtocol {
     }
     
     func queryItems(_ query: String) -> Single<[ItemDTO]> {
+        paging = Paging(total: 0, results: 0, offset: 0, limit: 20)
         return dataManager.queryItems(query, limit: paging.limit, offset: 0)
             .do(onSuccess: { [weak self] in
                 guard let self = self else { return }

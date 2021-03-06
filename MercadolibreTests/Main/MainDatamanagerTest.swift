@@ -34,7 +34,7 @@ class MainDatamanagerTest: XCTestCase {
             }
             XCTAssertEqual(item.items.count, 20, "20 results found")
             /// Paging tests
-            XCTAssertEqual(item.paging.total, 20935, "20 total results found")
+            XCTAssertEqual(item.paging.total, 20, "20 total results found")
             XCTAssertEqual(item.paging.offset, 0, "pagin offset 0")
             XCTAssertEqual(item.paging.limit, 20, "20 results per page")
             

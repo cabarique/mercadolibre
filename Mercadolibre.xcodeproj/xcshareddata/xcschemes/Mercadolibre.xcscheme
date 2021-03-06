@@ -49,16 +49,6 @@
                ReferencedContainer = "container:Mercadolibre.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1526E63725DB415C007A9292"
-               BuildableName = "MercadolibreUITests.xctest"
-               BlueprintName = "MercadolibreUITests"
-               ReferencedContainer = "container:Mercadolibre.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

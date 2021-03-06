@@ -2,7 +2,7 @@
     "site_id": "MCO",
     "query": "bicicleta",
     "paging": {
-        "total": 20935,
+        "total": 20,
         "primary_results": 1000,
         "offset": 0,
         "limit": 20

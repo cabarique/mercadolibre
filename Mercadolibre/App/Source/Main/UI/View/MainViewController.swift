@@ -13,6 +13,7 @@ import SkeletonView
 protocol MainViewOutput {
     func viewDidLoad()
     func search(_ query: String)
+    func getNextPage()
     func showItem(_ item: ItemEntity)
 }
 
@@ -37,7 +38,7 @@ final class MainViewController: UIViewController {
             searchView.searchTextField.font = Style.font.h3Regular
             searchView.searchTextField.textColor = Style.color.gray
             searchView.searchTextField.placeholder = "Buscar en Mercado Libre"
-            searchView.rx.text.orEmpty
+            searchView.rx.text.orEmpty.skip(1)
                 .throttle(.milliseconds(500), latest: true, scheduler: MainScheduler.instance)
                 .asObservable()
                 .distinctUntilChanged()
@@ -189,10 +190,15 @@ extension MainViewController: UICollectionViewDelegate {
         guard let entity = dataSource.itemIdentifier(for: indexPath) else { return }
         switch entity {
         case let item as ItemEntity: output.showItem(item)
-        case is ItemErrorEntity:
-            print("error") 
+        case is ItemErrorEntity: print("error")
         default: break
         }
-        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let entity = dataSource.itemIdentifier(for: indexPath) else { return }
+        if entity is ItemLoadingEntity, input.hasNextPage {
+            output.getNextPage()
+        }
     }
 }
