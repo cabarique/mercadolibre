@@ -14,6 +14,7 @@ enum ItemDetailSectionType: String {
     case photos = "PHOTOS"
     case price = "PRICE"
     case buy = "BUY"
+    case other
 }
 
 protocol ItemPresenterProtocol {
@@ -47,6 +48,15 @@ final class ItemPresenter: ItemPresenterProtocol {
         self.item = item
         router.show(presenter: self)
     }
+    
+    private func emitGenericLoading() {
+        
+        let items: [MainItemDetailLoadingSection] = [MainItemDetailLoadingSection(),
+                                                     MainItemDetailLoadingSection(),
+                                                     MainItemDetailLoadingSection(),]
+        let section = ItemDetailSection(title: "loading", items: items, type: .other)
+        sectionsSubject.accept([section])
+    }
 }
 
 // MARK: ItemViewInput
@@ -73,6 +83,7 @@ extension ItemPresenter: ItemViewInput {
 // MARK: ItemViewOutput
 extension ItemPresenter: ItemViewOutput {
     func viewDidLoad() {
+        emitGenericLoading()
         guard let id = item?.id else { return }
         interactor.queryItem(id: id)
             .asObservable()

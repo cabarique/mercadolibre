@@ -247,6 +247,19 @@ final class ItemViewController: UIViewController {
                 group.contentInsets = .init(top: 0, leading: 16, bottom: 16, trailing: 16)
                 let section = NSCollectionLayoutSection(group: group)
                 return section
+            case .other:
+                let size = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(120)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalHeight(1)
+                ))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+                group.contentInsets = .init(top: 0, leading: 16, bottom: 16, trailing: 16)
+                let section = NSCollectionLayoutSection(group: group)
+                return section
             }
         })
     }
