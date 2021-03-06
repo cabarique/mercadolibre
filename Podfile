@@ -22,6 +22,7 @@ target 'Mercadolibre' do
 
   target 'MercadolibreTests' do
     inherit! :search_paths
+    project 'Mercadolibre.xcodeproj'
     # Pods for testing
     pod 'OHHTTPStubs/Swift'
     pod 'RxBlocking', '6.1.0'
