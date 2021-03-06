@@ -104,4 +104,8 @@ extension MainPresenter: MainViewOutput {
         self.query(query)
     }
     
+    func showItem(_ item: ItemEntity) {
+        router.showItem(item)
+    }
+    
 }

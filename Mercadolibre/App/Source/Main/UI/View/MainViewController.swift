@@ -13,6 +13,7 @@ import SkeletonView
 protocol MainViewOutput {
     func viewDidLoad()
     func search(_ query: String)
+    func showItem(_ item: ItemEntity)
 }
 
 final class MainViewController: UIViewController {
@@ -86,6 +87,7 @@ final class MainViewController: UIViewController {
         view.backgroundColor = Style.color.background
         configureLayout()
         collectionView.dataSource = dataSource
+        collectionView.delegate = self
         output.viewDidLoad()
     }
     
@@ -180,5 +182,18 @@ final class MainViewController: UIViewController {
                 guard let self = self else { return }
                 self.applySnapshot(animatingDifferences: true, sections: sections)
             }).disposed(by: disposeBag)
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let entity = dataSource.itemIdentifier(for: indexPath) else { return }
+        switch entity {
+        case let item as ItemEntity: output.showItem(item)
+        case is ItemErrorEntity:
+            print("error") 
+        default: break
+        }
+        
     }
 }

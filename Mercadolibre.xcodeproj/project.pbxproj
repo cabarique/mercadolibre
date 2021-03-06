@@ -32,6 +32,12 @@
 		15A3DC7525EC071A004E9CB7 /* ErrorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3DC7325EC071A004E9CB7 /* ErrorCell.swift */; };
 		15A3DC7625EC071A004E9CB7 /* ErrorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A3DC7425EC071A004E9CB7 /* ErrorCell.xib */; };
 		15A3DC8F25EC14F8004E9CB7 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3DC8E25EC14F8004E9CB7 /* CurrencyFormatter.swift */; };
+		15FD70A225F2FD96006E0C3E /* ItemModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FD70A125F2FD96006E0C3E /* ItemModule.swift */; };
+		15FD70AC25F2FDDA006E0C3E /* ItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FD70AB25F2FDDA006E0C3E /* ItemPresenter.swift */; };
+		15FD70B525F2FE0D006E0C3E /* ItemRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FD70B425F2FE0D006E0C3E /* ItemRouter.swift */; };
+		15FD70BE25F2FE39006E0C3E /* ItemInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FD70BD25F2FE39006E0C3E /* ItemInteractor.swift */; };
+		15FD70C725F2FEBB006E0C3E /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FD70C625F2FEBB006E0C3E /* ItemViewController.swift */; };
+		15FD70D325F30895006E0C3E /* ItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FD70D225F30895006E0C3E /* ItemViewController.xib */; };
 		333B232CA3939E9CE1EB28C2 /* Pods_MercadolibreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE52D510D763DAC8041BBB25 /* Pods_MercadolibreTests.framework */; };
 		895CFB73415C6B5595A19C0B /* Pods_Mercadolibre_MercadolibreUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2100E728ADC1826BE1F2F798 /* Pods_Mercadolibre_MercadolibreUITests.framework */; };
 /* End PBXBuildFile section */
@@ -86,6 +92,12 @@
 		15A3DC7325EC071A004E9CB7 /* ErrorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorCell.swift; sourceTree = "<group>"; };
 		15A3DC7425EC071A004E9CB7 /* ErrorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorCell.xib; sourceTree = "<group>"; };
 		15A3DC8E25EC14F8004E9CB7 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
+		15FD70A125F2FD96006E0C3E /* ItemModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModule.swift; sourceTree = "<group>"; };
+		15FD70AB25F2FDDA006E0C3E /* ItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPresenter.swift; sourceTree = "<group>"; };
+		15FD70B425F2FE0D006E0C3E /* ItemRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRouter.swift; sourceTree = "<group>"; };
+		15FD70BD25F2FE39006E0C3E /* ItemInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInteractor.swift; sourceTree = "<group>"; };
+		15FD70C625F2FEBB006E0C3E /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		15FD70D225F30895006E0C3E /* ItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemViewController.xib; sourceTree = "<group>"; };
 		2100E728ADC1826BE1F2F798 /* Pods_Mercadolibre_MercadolibreUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mercadolibre_MercadolibreUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		298BED07E500A9B58FFF1DDA /* Pods-MercadolibreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MercadolibreTests.release.xcconfig"; path = "Target Support Files/Pods-MercadolibreTests/Pods-MercadolibreTests.release.xcconfig"; sourceTree = "<group>"; };
 		7C99C05B007AEBE14E6EB998 /* Pods-Mercadolibre-MercadolibreUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mercadolibre-MercadolibreUITests.release.xcconfig"; path = "Target Support Files/Pods-Mercadolibre-MercadolibreUITests/Pods-Mercadolibre-MercadolibreUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +159,7 @@
 		15263D4725DB549400D72877 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				15FD70D125F3087C006E0C3E /* Item */,
 				15263D5D25DB557400D72877 /* Main */,
 				1526E62325DB415C007A9292 /* Assets.xcassets */,
 			);
@@ -166,6 +179,7 @@
 		15263D5C25DB555F00D72877 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1593FAB325E1605500DC6599 /* Diffable */,
 				1593FAB225E1604A00DC6599 /* Cells */,
 				15263D4825DB54E000D72877 /* MainViewController.swift */,
 			);
@@ -201,6 +215,7 @@
 		15263D9025DB5F0800D72877 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				15263D9725DB5F8D00D72877 /* MainDataManager.swift */,
 				15263D9125DB5F0E00D72877 /* Interactor */,
 			);
 			path = Logic;
@@ -210,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				15263D9225DB5F1C00D72877 /* MainInteractor.swift */,
-				15263D9725DB5F8D00D72877 /* MainDataManager.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -228,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				1593FAA825E146CE00DC6599 /* Common */,
+				15FD70A025F2FD81006E0C3E /* Item */,
 				15263D4525DB547100D72877 /* Main */,
 			);
 			path = Source;
@@ -304,7 +319,6 @@
 		1593FAB225E1604A00DC6599 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				1593FAB325E1605500DC6599 /* Diffable */,
 				1593FAC725E16C9D00DC6599 /* ItemCell.swift */,
 				15A3DC7325EC071A004E9CB7 /* ErrorCell.swift */,
 			);
@@ -319,6 +333,66 @@
 				155E270725E5585100A66AEF /* MainItemEntity.swift */,
 			);
 			path = Diffable;
+			sourceTree = "<group>";
+		};
+		15FD70A025F2FD81006E0C3E /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				15FD70BC25F2FE28006E0C3E /* Logic */,
+				15FD70A925F2FDC5006E0C3E /* UI */,
+				15FD70A125F2FD96006E0C3E /* ItemModule.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		15FD70A925F2FDC5006E0C3E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				15FD70C525F2FEAF006E0C3E /* View */,
+				15FD70B325F2FE02006E0C3E /* Router */,
+				15FD70AA25F2FDCD006E0C3E /* Presenter */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		15FD70AA25F2FDCD006E0C3E /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				15FD70AB25F2FDDA006E0C3E /* ItemPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		15FD70B325F2FE02006E0C3E /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				15FD70B425F2FE0D006E0C3E /* ItemRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		15FD70BC25F2FE28006E0C3E /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				15FD70BD25F2FE39006E0C3E /* ItemInteractor.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		15FD70C525F2FEAF006E0C3E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				15FD70C625F2FEBB006E0C3E /* ItemViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		15FD70D125F3087C006E0C3E /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				15FD70D225F30895006E0C3E /* ItemViewController.xib */,
+			);
+			path = Item;
 			sourceTree = "<group>";
 		};
 		52375EF03F8993A1E730F16C /* Pods */ = {
@@ -454,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1593FACA25E16C9D00DC6599 /* ItemCell.xib in Resources */,
+				15FD70D325F30895006E0C3E /* ItemViewController.xib in Resources */,
 				15A3DC7625EC071A004E9CB7 /* ErrorCell.xib in Resources */,
 				1526E62725DB415C007A9292 /* LaunchScreen.storyboard in Resources */,
 				1526E62425DB415C007A9292 /* Assets.xcassets in Resources */,
@@ -604,11 +679,16 @@
 			files = (
 				15A3DC5F25EBE364004E9CB7 /* ServiceDefinitions.swift in Sources */,
 				1593FAB525E1606700DC6599 /* ItemEntity.swift in Sources */,
+				15FD70A225F2FD96006E0C3E /* ItemModule.swift in Sources */,
+				15FD70B525F2FE0D006E0C3E /* ItemRouter.swift in Sources */,
 				15263D8025DB5AC300D72877 /* MainPresenter.swift in Sources */,
+				15FD70AC25F2FDDA006E0C3E /* ItemPresenter.swift in Sources */,
+				15FD70BE25F2FE39006E0C3E /* ItemInteractor.swift in Sources */,
 				155E270825E5585100A66AEF /* MainItemEntity.swift in Sources */,
 				15A3DC7525EC071A004E9CB7 /* ErrorCell.swift in Sources */,
 				1526E61B25DB415B007A9292 /* AppDelegate.swift in Sources */,
 				15263D9825DB5F8D00D72877 /* MainDataManager.swift in Sources */,
+				15FD70C725F2FEBB006E0C3E /* ItemViewController.swift in Sources */,
 				1593FAC025E161BD00DC6599 /* SectionEntity.swift in Sources */,
 				1526E61D25DB415B007A9292 /* SceneDelegate.swift in Sources */,
 				15263D7A25DB596400D72877 /* MainModule.swift in Sources */,
