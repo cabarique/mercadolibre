@@ -14,6 +14,7 @@ protocol MainPresenterProtocol {
 }
 
 protocol MainViewInput {
+    var currentAddress: String { get }
     var itemsObservable: Driver<[SectionEntity]> { get }
 }
 
@@ -73,6 +74,10 @@ final class MainPresenter: MainPresenterProtocol {
 }
 
 extension MainPresenter: MainViewInput {
+    var currentAddress: String {
+        interactor.currentAddress
+    }
+    
     var itemsObservable: Driver<[SectionEntity]> {
         return itemsSubject.asDriver(onErrorDriveWith: .never())
     }
@@ -105,7 +110,7 @@ extension MainPresenter: MainViewOutput {
     }
     
     func showItem(_ item: ItemEntity) {
-        router.showItem(item)
+        router.showItem(item, address: currentAddress)
     }
     
 }

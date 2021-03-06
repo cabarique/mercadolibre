@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 protocol MainInteractorProtocol {
+    var currentAddress: String { get }
     func queryItems(_ query: String) -> Single<[ItemDTO]>
     func nextPage(_ query: String) -> Single<[ItemDTO]>
 }
@@ -16,6 +17,7 @@ protocol MainInteractorProtocol {
 final class MainInteractor: MainInteractorProtocol {
     
     // MARK: Attributes
+    var currentAddress: String = "calle 159 # 54 - 81 >"
     private let dataManager: MainDataManagerProtocol
     private var paging: Paging
     private var items = [ItemDTO]()

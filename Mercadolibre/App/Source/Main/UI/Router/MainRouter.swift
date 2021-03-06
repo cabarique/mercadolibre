@@ -10,7 +10,7 @@ import UIKit
 
 protocol MainRouterProtocol {
     func show(presenter: MainViewInput & MainViewOutput)
-    func showItem(_ item: ItemEntity)
+    func showItem(_ item: ItemEntity, address: String)
 }
 
 final class MainRouter: MainRouterProtocol {
@@ -27,10 +27,10 @@ final class MainRouter: MainRouterProtocol {
     
     func show(presenter: MainViewInput & MainViewOutput) {
         let vc = MainViewController(presenter: presenter)
-        navigation?.pushViewController(vc, animated: false)
+        navigation?.pushViewController(vc, animated: true)
     }
     
-    func showItem(_ item: ItemEntity) {
-        ItemModule(baseController: navigation).show(item)
+    func showItem(_ item: ItemEntity, address: String) {
+        ItemModule(baseController: navigation, address: address).show(item)
     }
 }

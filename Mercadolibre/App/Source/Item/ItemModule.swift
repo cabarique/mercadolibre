@@ -11,11 +11,13 @@ import UIKit
 final class ItemModule {
     private let presenter: ItemPresenterProtocol
     
-    init(baseController: UIViewController?, presenter: ItemPresenterProtocol? = nil) {
+    init(baseController: UIViewController?,
+         presenter: ItemPresenterProtocol? = nil,
+         address: String) {
         if let presenter = presenter {
             self.presenter = presenter
         } else {
-            let interactor = ItemInteractor()
+            let interactor = ItemInteractor(address: address)
             let router = ItemRouter(baseController: baseController)
             self.presenter = ItemPresenter(router: router, interactor: interactor)
         }

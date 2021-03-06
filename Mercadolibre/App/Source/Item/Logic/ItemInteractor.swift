@@ -8,9 +8,14 @@
 import Foundation
 
 protocol ItemInteractorProtocol {
-    
+    var currentAddress: String { get }
 }
 
 final class ItemInteractor: ItemInteractorProtocol {
+    // MARK: Attributes
+    var currentAddress: String
     
+    init(address: String) {
+        currentAddress = address
+    }
 }

@@ -57,7 +57,7 @@ final class MainViewController: UIViewController {
         didSet {
             addressLable.font = Style.font.h3Regular
             addressLable.textColor = Style.color.gray
-            addressLable.text = "Enviar a Luis Cabarique - calle 159 # 54 - 81 >"
+            addressLable.text = "Enviar a Luis Cabarique - " + input.currentAddress
         }
     }
     

@@ -10,6 +10,7 @@ import UIKit
 
 protocol ItemRouterProtocol {
     func show(presenter: ItemViewInput & ItemViewOutput)
+    func back()
 }
 
 final class ItemRouter: ItemRouterProtocol {
@@ -27,5 +28,9 @@ final class ItemRouter: ItemRouterProtocol {
     func show(presenter: ItemViewInput & ItemViewOutput) {
         let vc = ItemViewController(presenter: presenter)
         navigation?.pushViewController(vc, animated: false)
+    }
+    
+    func back() {
+        navigation?.popViewController(animated: true)
     }
 }

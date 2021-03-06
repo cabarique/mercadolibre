@@ -12,7 +12,7 @@ protocol ItemPresenterProtocol {
 }
 
 protocol ItemViewInput {
-    
+    var currentAddress: String { get }
 }
 
 final class ItemPresenter: ItemPresenterProtocol {
@@ -32,9 +32,13 @@ final class ItemPresenter: ItemPresenterProtocol {
 }
 
 extension ItemPresenter: ItemViewInput {
-    
+    var currentAddress: String {
+        interactor.currentAddress
+    }
 }
 
 extension ItemPresenter: ItemViewOutput {
-    
+    func back() {
+        router.back()
+    }
 }

@@ -382,6 +382,7 @@
 		15FD70C525F2FEAF006E0C3E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				15FD70D725F316CA006E0C3E /* Cells */,
 				15FD70C625F2FEBB006E0C3E /* ItemViewController.swift */,
 			);
 			path = View;
@@ -393,6 +394,13 @@
 				15FD70D225F30895006E0C3E /* ItemViewController.xib */,
 			);
 			path = Item;
+			sourceTree = "<group>";
+		};
+		15FD70D725F316CA006E0C3E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		52375EF03F8993A1E730F16C /* Pods */ = {
