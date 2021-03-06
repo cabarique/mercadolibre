@@ -60,12 +60,15 @@ final class ItemCell: UICollectionViewCell {
         priceLabel.text = price
         installmentLabel.text = installments
         usedLabel.text = condition
-        if let thumb = thumb,
-           let data = try? Data(contentsOf: thumb),
-           let image = UIImage(data: data, scale: UIScreen.main.scale) {
-            image.af.inflate()
-            thumbImage.image = image
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let thumb = thumb,
+               let data = try? Data(contentsOf: thumb),
+               let image = UIImage(data: data, scale: UIScreen.main.scale) {
+                image.af.inflate()
+                DispatchQueue.main.async {
+                    self.thumbImage.image = image
+                }
+            }
         }
-        
     }
 }

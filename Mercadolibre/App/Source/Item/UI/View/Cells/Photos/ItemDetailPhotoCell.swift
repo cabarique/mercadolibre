@@ -20,10 +20,14 @@ final class ItemDetailPhotoCell: UICollectionViewCell {
         photoImageView.image = UIImage(systemName: "photo")
     }
     func set(image: URL) {
-        if let data = try? Data(contentsOf: image),
-           let image = UIImage(data: data, scale: UIScreen.main.scale) {
-            image.af.inflate()
-            photoImageView.image = image
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let data = try? Data(contentsOf: image),
+               let image = UIImage(data: data, scale: UIScreen.main.scale) {
+                image.af.inflate()
+                DispatchQueue.main.async {
+                    self.photoImageView.image = image
+                }
+            }
         }
     }
     
