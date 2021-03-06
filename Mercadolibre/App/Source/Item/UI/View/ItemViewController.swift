@@ -124,6 +124,11 @@ final class ItemViewController: UIViewController {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemDetailHeaderCell
                     cell?.setup(name: detail.name, condition: detail.condition, soldQuantity: detail.soldQuantity, soldBy: detail.soldBy)
                     return cell
+                case let photo as ItemDetailPhoto:
+                    let id = String(describing: ItemDetailPhotoCell.self)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemDetailPhotoCell
+                    cell?.set(image: photo.url)
+                    return cell
                 case is MainItemDetailLoadingSection:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingCell", for: indexPath)
                     cell.contentView.isSkeletonable = true
@@ -154,23 +159,52 @@ final class ItemViewController: UIViewController {
     private func configureLayout() {
         let id = String(describing: ItemDetailHeaderCell.self)
         collectionView.register(UINib(nibName: id, bundle: nil), forCellWithReuseIdentifier: id)
+        let photo = String(describing: ItemDetailPhotoCell.self)
+        collectionView.register(UINib(nibName: photo, bundle: nil), forCellWithReuseIdentifier: photo)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "loadingCell")
         let errorId = String(describing: ErrorCell.self)
         collectionView.register(UINib(nibName: errorId, bundle: nil), forCellWithReuseIdentifier: errorId)
         
         collectionView.collectionViewLayout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            let isPhone = layoutEnvironment.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiom.phone
-            let size = NSCollectionLayoutSize(
-                widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
-                heightDimension: NSCollectionLayoutDimension.absolute(isPhone ? 130 : 120)
-            )
             
-            let item = NSCollectionLayoutItem(layoutSize: size)
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
-            section.interGroupSpacing = 10
-            return section
+            guard let sectionType = self.input.sectionForIndex(sectionIndex) else {
+                let size = NSCollectionLayoutSize(
+                    widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+                    heightDimension: NSCollectionLayoutDimension.absolute(0)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: size)
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 0)
+                let section = NSCollectionLayoutSection(group: group)
+                return section
+            }
+            switch sectionType {
+            case .header:
+                let size = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(100)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalHeight(1)
+                ))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+                group.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
+                let section = NSCollectionLayoutSection(group: group)
+                return section
+            case .photos:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let size = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalWidth(0.7)
+                )
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+                group.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .groupPaging
+                return section
+            }
         })
     }
     

@@ -10,11 +10,13 @@ import Foundation
 final class ItemDetailSection: Hashable {
     var id = UUID()
     var title: String
+    var type: ItemDetailSectionType
     var items: [MainItemDetailSection]
     
-    init(title: String, items: [MainItemDetailSection]) {
+    init(title: String, items: [MainItemDetailSection], type: ItemDetailSectionType) {
         self.title = title
         self.items = items
+        self.type = type
     }
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

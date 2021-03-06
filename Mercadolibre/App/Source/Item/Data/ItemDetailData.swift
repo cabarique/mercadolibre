@@ -16,15 +16,26 @@ struct ItemDetailDTO: Decodable {
     let price: Float
     let soldQuantity: Int?
     let condition: ConditionType?
+    var pictures: [URL] = []
     
     enum CodingKeys: String, CodingKey {
         case id, price, condition
         case name = "title"
         case soldQuantity = "sold_quantity"
+        case pictures
     }
     
     enum ContainerCodingKeys: String, CodingKey {
         case body
+    }
+    
+    enum PictureCodingKeys: String, CodingKey {
+        case url
+    }
+    
+    struct Pictures: Decodable {
+        let id: String
+        let url: String?
     }
     
     init(from decoder: Decoder) throws {
@@ -35,5 +46,12 @@ struct ItemDetailDTO: Decodable {
         price = try container.decode(Float.self, forKey: .price)
         soldQuantity = try? container.decode(Int.self, forKey: .soldQuantity)
         condition = try? container.decode(ConditionType.self, forKey: .condition)
+        
+        // Pictures
+        if let picturesContainer = try? container.decode([Pictures].self, forKey: .pictures) {
+            pictures = picturesContainer.compactMap { value -> URL? in
+                guard let url = value.url else { return nil }
+                return URL(string: url)}
+        } 
     }
 }

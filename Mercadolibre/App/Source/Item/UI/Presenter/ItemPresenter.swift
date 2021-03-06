@@ -9,6 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+enum ItemDetailSectionType: String {
+    case header = "HEADER"
+    case photos = "PHOTOS"
+}
+
 protocol ItemPresenterProtocol {
     func show(_ item: ItemEntity)
 }
@@ -16,6 +21,8 @@ protocol ItemPresenterProtocol {
 protocol ItemViewInput {
     var currentAddress: String { get }
     var itemsObservable: Driver<[ItemDetailSection]> { get }
+    func sectionForIndex(_ index: Int) -> ItemDetailSectionType?
+    func sectionItemsForIndex(_ index: Int) -> Int
 }
 
 final class ItemPresenter: ItemPresenterProtocol {
@@ -26,7 +33,7 @@ final class ItemPresenter: ItemPresenterProtocol {
     
     // MARK: Subjects
     private let disposeBag = DisposeBag()
-    private let sectionsSubject = ReplaySubject<[ItemDetailSection]>.create(bufferSize: 1)
+    private let sectionsSubject = BehaviorRelay<[ItemDetailSection]>(value: [])
     
     // MARK: Init
     init(router: ItemRouterProtocol, interactor: ItemInteractorProtocol) {
@@ -42,6 +49,16 @@ final class ItemPresenter: ItemPresenterProtocol {
 
 // MARK: ItemViewInput
 extension ItemPresenter: ItemViewInput {
+    func sectionForIndex(_ index: Int) -> ItemDetailSectionType? {
+        guard let value = sectionsSubject.value[safe: index] else { return nil }
+        return value.type
+    }
+    
+    func sectionItemsForIndex(_ index: Int) -> Int {
+        guard let value = sectionsSubject.value[safe: index] else { return 0 }
+        return value.items.count
+    }
+    
     var itemsObservable: Driver<[ItemDetailSection]> {
         return sectionsSubject.asDriver(onErrorDriveWith: .never())
     }
@@ -62,8 +79,11 @@ extension ItemPresenter: ItemViewOutput {
                                               condition: value.condition?.localized,
                                               soldQuantity: value.soldQuantity,
                                               soldBy: nil)
-            let headerSection = ItemDetailSection(title: "HEADER", items: [header])
-            return [headerSection]
+                let headerSection = ItemDetailSection(title: "HEADER", items: [header], type: .header)
+                
+                let photos = value.pictures.map { ItemDetailPhoto(url: $0)}
+                let photosSection = ItemDetailSection(title: "PHOTOS", items: photos, type: .photos)
+            return [headerSection, photosSection]
         }.bind(to: sectionsSubject)
         .disposed(by: disposeBag)
         
