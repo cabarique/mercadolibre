@@ -172,7 +172,6 @@ final class MainViewController: UIViewController {
             section.interGroupSpacing = 10
             return section
         })
-        
     }
     
     // MARK: input

@@ -14,7 +14,7 @@ struct ServiceDefinitions {
         return baseUrl + "/sites/MCO/search"
     }()
     /// Query single item
-    static let queryITem: String = {
+    static let queryItem: String = {
         return baseUrl + "/items"
     }()
 }

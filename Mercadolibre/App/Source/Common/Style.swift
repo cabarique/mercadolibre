@@ -76,4 +76,6 @@ struct Color {
     var green: UIColor {
         UIColor(named: "green") ?? UIColor.green
     }
+    
+    var lightGray: UIColor = .lightGray
 }

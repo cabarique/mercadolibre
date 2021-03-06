@@ -40,7 +40,7 @@ final class ItemCell: UICollectionViewCell {
     @IBOutlet private weak var usedLabel: UILabel! {
         didSet {
             usedLabel.font = Style.font.h3Regular
-            usedLabel.textColor = .lightGray
+            usedLabel.textColor = Style.color.lightGray
         }
     }
     

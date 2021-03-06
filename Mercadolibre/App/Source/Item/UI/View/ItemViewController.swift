@@ -9,9 +9,11 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import SkeletonView
 
 protocol ItemViewOutput {
     func back()
+    func viewDidLoad()
 }
 
 final class ItemViewController: UIViewController {
@@ -61,6 +63,12 @@ final class ItemViewController: UIViewController {
             locationLabel.textColor = Style.color.gray
         }
     }
+    @IBOutlet private weak var collectionView: UICollectionView!
+    
+    // MARK: - Value Types
+    typealias DataSource = UICollectionViewDiffableDataSource<ItemDetailSection, MainItemDetailSection>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<ItemDetailSection, MainItemDetailSection>
+    private lazy var dataSource = makeDataSource()
     
     // MARK: Subjects
     
@@ -84,20 +92,98 @@ final class ItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Style.color.background
+        configureLayout()
+        collectionView.dataSource = dataSource
+        collectionView.delegate = self
+        output.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        rxBind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true;
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-       self.navigationController?.isNavigationBarHidden = false;
+        self.navigationController?.isNavigationBarHidden = false;
     }
+    
+    // MARK: - CollectionView Layout
+    func makeDataSource() -> DataSource {
+        let dataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+                switch item {
+                case let detail as ItemDetailHeader:
+                    let id = String(describing: ItemDetailHeaderCell.self)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemDetailHeaderCell
+                    cell?.setup(name: detail.name, condition: detail.condition, soldQuantity: detail.soldQuantity, soldBy: detail.soldBy)
+                    return cell
+                case is MainItemDetailLoadingSection:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingCell", for: indexPath)
+                    cell.contentView.isSkeletonable = true
+                    cell.contentView.showAnimatedSkeleton()
+                    let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+                    cell.contentView.showAnimatedSkeleton(usingColor: .concrete, animation: animation, transition: .none)
+                    return cell
+                default:
+                    let errorMessage = (item as? MainItemDetailErrorSection)?.errorMessage
+                    let id = String(describing: ErrorCell.self)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ErrorCell
+                    cell?.errorMessage = errorMessage
+                    return cell
+                }
+            })
+        return dataSource
+    }
+    
+    private func applySnapshot(animatingDifferences: Bool = true, sections: [ItemDetailSection]) {
+        var snapshot = Snapshot()
+        snapshot.appendSections(sections)
+        sections.forEach { section in
+            snapshot.appendItems(section.items, toSection: section)
+        }
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
+    
+    private func configureLayout() {
+        let id = String(describing: ItemDetailHeaderCell.self)
+        collectionView.register(UINib(nibName: id, bundle: nil), forCellWithReuseIdentifier: id)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "loadingCell")
+        let errorId = String(describing: ErrorCell.self)
+        collectionView.register(UINib(nibName: errorId, bundle: nil), forCellWithReuseIdentifier: errorId)
+        
+        collectionView.collectionViewLayout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            let isPhone = layoutEnvironment.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiom.phone
+            let size = NSCollectionLayoutSize(
+                widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+                heightDimension: NSCollectionLayoutDimension.absolute(isPhone ? 130 : 120)
+            )
+            
+            let item = NSCollectionLayoutItem(layoutSize: size)
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
+            section.interGroupSpacing = 10
+            return section
+        })
+    }
+    
+    // MARK: Rx
+    func rxBind() {
+        input.itemsObservable
+            .drive(onNext: { [weak self] sections in
+                guard let self = self else { return }
+                self.applySnapshot(animatingDifferences: true, sections: sections)
+            }).disposed(by: disposeBag)
+    }
+}
+
+extension ItemViewController: UICollectionViewDelegate {
+    
 }

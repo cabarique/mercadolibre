@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="backButton" destination="qTP-xN-V3R" id="8WN-aK-eBy"/>
                 <outlet property="cartButton" destination="Yew-fH-Blg" id="IkR-5Y-a1C"/>
+                <outlet property="collectionView" destination="RxJ-nW-qbG" id="EPS-aD-PBx"/>
                 <outlet property="headerView" destination="psc-f9-Qxy" id="cdJ-yH-hAO"/>
                 <outlet property="likeButton" destination="f9e-wK-4b5" id="yYO-ht-VYM"/>
                 <outlet property="locationImage" destination="WbD-0q-Z9d" id="mUZ-a6-TQW"/>

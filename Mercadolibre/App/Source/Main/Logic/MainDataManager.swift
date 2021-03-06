@@ -31,6 +31,7 @@ protocol MainDataManagerProtocol {
 }
 
 final class MainDataManager: MainDataManagerProtocol {
+    // MARK: Attributes
     private let disposeBag = DisposeBag()
     
     func queryItems(_ query: String, limit: Int, offset: Int) -> Single<ItemsDTO> {
