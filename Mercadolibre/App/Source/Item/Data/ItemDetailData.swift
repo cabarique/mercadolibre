@@ -17,12 +17,13 @@ struct ItemDetailDTO: Decodable {
     let soldQuantity: Int?
     let condition: ConditionType?
     var pictures: [URL] = []
+    let originalPrice: Float?
     
     enum CodingKeys: String, CodingKey {
-        case id, price, condition
+        case id, price, condition, pictures
         case name = "title"
         case soldQuantity = "sold_quantity"
-        case pictures
+        case originalPrice = "original_price"
     }
     
     enum ContainerCodingKeys: String, CodingKey {
@@ -44,6 +45,7 @@ struct ItemDetailDTO: Decodable {
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         price = try container.decode(Float.self, forKey: .price)
+        originalPrice = try? container.decode(Float.self, forKey: .originalPrice)
         soldQuantity = try? container.decode(Int.self, forKey: .soldQuantity)
         condition = try? container.decode(ConditionType.self, forKey: .condition)
         
@@ -52,6 +54,6 @@ struct ItemDetailDTO: Decodable {
             pictures = picturesContainer.compactMap { value -> URL? in
                 guard let url = value.url else { return nil }
                 return URL(string: url)}
-        } 
+        }
     }
 }

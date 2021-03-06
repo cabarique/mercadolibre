@@ -129,6 +129,14 @@ final class ItemViewController: UIViewController {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemDetailPhotoCell
                     cell?.set(image: photo.url)
                     return cell
+                case let price as ItemDetailPrice:
+                    let id = String(describing: ItemDetailPriceCell.self)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemDetailPriceCell
+                    cell?.setup(originalPrice: price.original,
+                                basePrice: price.price,
+                                discount: price.discount,
+                                installments: "en \(price.installments.quantity)x \(price.installments.amount.toCurrency())")
+                    return cell
                 case is MainItemDetailLoadingSection:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingCell", for: indexPath)
                     cell.contentView.isSkeletonable = true
@@ -161,6 +169,8 @@ final class ItemViewController: UIViewController {
         collectionView.register(UINib(nibName: id, bundle: nil), forCellWithReuseIdentifier: id)
         let photo = String(describing: ItemDetailPhotoCell.self)
         collectionView.register(UINib(nibName: photo, bundle: nil), forCellWithReuseIdentifier: photo)
+        let price = String(describing: ItemDetailPriceCell.self)
+        collectionView.register(UINib(nibName: price, bundle: nil), forCellWithReuseIdentifier: price)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "loadingCell")
         let errorId = String(describing: ErrorCell.self)
         collectionView.register(UINib(nibName: errorId, bundle: nil), forCellWithReuseIdentifier: errorId)
@@ -203,6 +213,19 @@ final class ItemViewController: UIViewController {
                 group.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .groupPaging
+                return section
+            case .price:
+                let size = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(100)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalHeight(1)
+                ))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+                group.contentInsets = .init(top: 0, leading: 16, bottom: 16, trailing: 16)
+                let section = NSCollectionLayoutSection(group: group)
                 return section
             }
         })

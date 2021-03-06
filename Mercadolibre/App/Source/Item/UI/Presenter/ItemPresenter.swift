@@ -12,6 +12,7 @@ import RxCocoa
 enum ItemDetailSectionType: String {
     case header = "HEADER"
     case photos = "PHOTOS"
+    case price = "PRICE"
 }
 
 protocol ItemPresenterProtocol {
@@ -74,7 +75,9 @@ extension ItemPresenter: ItemViewOutput {
         guard let id = item?.id else { return }
         interactor.queryItem(id: id)
             .asObservable()
-            .map { value in
+            .map { [weak self] value in
+                guard let self = self else { return [] }
+                var sections = [ItemDetailSection]()
                 let header = ItemDetailHeader(name: value.name,
                                               condition: value.condition?.localized,
                                               soldQuantity: value.soldQuantity,
@@ -83,7 +86,18 @@ extension ItemPresenter: ItemViewOutput {
                 
                 let photos = value.pictures.map { ItemDetailPhoto(url: $0)}
                 let photosSection = ItemDetailSection(title: "PHOTOS", items: photos, type: .photos)
-            return [headerSection, photosSection]
+                sections = [headerSection, photosSection]
+                if let installment = self.item?.installment {
+                    var discount: Int? {
+                        guard let original = value.originalPrice else { return nil }
+                        return Int((1 - (value.price / original)) * 100)
+                    }
+                    let price = ItemDetailPrice(price: value.price, original: value.originalPrice, discount: discount, installments: installment)
+                    let priceSection = ItemDetailSection(title: "PRICE", items: [price], type: .price)
+                    sections.append(priceSection)
+                }
+                
+            return sections
         }.bind(to: sectionsSubject)
         .disposed(by: disposeBag)
         

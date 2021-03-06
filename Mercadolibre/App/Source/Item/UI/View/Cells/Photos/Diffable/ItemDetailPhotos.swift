@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 /// Header section
 final class ItemDetailPhoto: MainItemDetailSection {
     let url: URL
