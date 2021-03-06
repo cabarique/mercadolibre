@@ -13,6 +13,7 @@ enum ItemDetailSectionType: String {
     case header = "HEADER"
     case photos = "PHOTOS"
     case price = "PRICE"
+    case buy = "BUY"
 }
 
 protocol ItemPresenterProtocol {
@@ -97,14 +98,19 @@ extension ItemPresenter: ItemViewOutput {
                     sections.append(priceSection)
                 }
                 
+                let buySection = ItemDetailSection(title: "BUY", items: [ItemDetailBuy(link: value.permaLink)], type: .buy)
+                sections.append(buySection)
             return sections
         }.bind(to: sectionsSubject)
         .disposed(by: disposeBag)
-        
     }
     
     func back() {
         router.back()
+    }
+    
+    func openLink(url: URL) {
+        router.openLink(url: url)
     }
 }
 

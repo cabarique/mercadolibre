@@ -78,4 +78,6 @@ struct Color {
     }
     
     var lightGray: UIColor = .lightGray
+    
+    var blue: UIColor = .systemBlue
 }

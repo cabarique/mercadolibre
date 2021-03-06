@@ -18,12 +18,14 @@ struct ItemDetailDTO: Decodable {
     let condition: ConditionType?
     var pictures: [URL] = []
     let originalPrice: Float?
+    let permaLink: URL?
     
     enum CodingKeys: String, CodingKey {
         case id, price, condition, pictures
         case name = "title"
         case soldQuantity = "sold_quantity"
         case originalPrice = "original_price"
+        case permaLink = "permalink"
     }
     
     enum ContainerCodingKeys: String, CodingKey {
@@ -48,6 +50,11 @@ struct ItemDetailDTO: Decodable {
         originalPrice = try? container.decode(Float.self, forKey: .originalPrice)
         soldQuantity = try? container.decode(Int.self, forKey: .soldQuantity)
         condition = try? container.decode(ConditionType.self, forKey: .condition)
+        if let url = try? container.decode(String.self, forKey: .permaLink) {
+            permaLink = URL(string: url)
+        } else {
+            permaLink = nil
+        }
         
         // Pictures
         if let picturesContainer = try? container.decode([Pictures].self, forKey: .pictures) {

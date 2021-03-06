@@ -11,6 +11,7 @@ import UIKit
 protocol ItemRouterProtocol {
     func show(presenter: ItemViewInput & ItemViewOutput)
     func back()
+    func openLink(url: URL)
 }
 
 final class ItemRouter: ItemRouterProtocol {
@@ -32,5 +33,9 @@ final class ItemRouter: ItemRouterProtocol {
     
     func back() {
         navigation?.popViewController(animated: true)
+    }
+    
+    func openLink(url: URL) {
+        UIApplication.shared.open(url)
     }
 }

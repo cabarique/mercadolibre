@@ -14,6 +14,7 @@ import SkeletonView
 protocol ItemViewOutput {
     func back()
     func viewDidLoad()
+    func openLink(url: URL)
 }
 
 final class ItemViewController: UIViewController {
@@ -137,6 +138,10 @@ final class ItemViewController: UIViewController {
                                 discount: price.discount,
                                 installments: "en \(price.installments.quantity)x \(price.installments.amount.toCurrency())")
                     return cell
+                case is ItemDetailBuy:
+                    let id = String(describing: ItemDetailBuyCell.self)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as? ItemDetailBuyCell
+                    return cell
                 case is MainItemDetailLoadingSection:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingCell", for: indexPath)
                     cell.contentView.isSkeletonable = true
@@ -171,6 +176,8 @@ final class ItemViewController: UIViewController {
         collectionView.register(UINib(nibName: photo, bundle: nil), forCellWithReuseIdentifier: photo)
         let price = String(describing: ItemDetailPriceCell.self)
         collectionView.register(UINib(nibName: price, bundle: nil), forCellWithReuseIdentifier: price)
+        let buy = String(describing: ItemDetailBuyCell.self)
+        collectionView.register(UINib(nibName: buy, bundle: nil), forCellWithReuseIdentifier: buy)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "loadingCell")
         let errorId = String(describing: ErrorCell.self)
         collectionView.register(UINib(nibName: errorId, bundle: nil), forCellWithReuseIdentifier: errorId)
@@ -227,6 +234,19 @@ final class ItemViewController: UIViewController {
                 group.contentInsets = .init(top: 0, leading: 16, bottom: 16, trailing: 16)
                 let section = NSCollectionLayoutSection(group: group)
                 return section
+            case .buy:
+                let size = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(120)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalHeight(1)
+                ))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+                group.contentInsets = .init(top: 0, leading: 16, bottom: 16, trailing: 16)
+                let section = NSCollectionLayoutSection(group: group)
+                return section
             }
         })
     }
@@ -242,5 +262,10 @@ final class ItemViewController: UIViewController {
 }
 
 extension ItemViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let entity = dataSource.itemIdentifier(for: indexPath) else { return }
+        if let buy = entity as? ItemDetailBuy, let url = buy.link {
+            output.openLink(url: url)
+        }
+    }
 }
